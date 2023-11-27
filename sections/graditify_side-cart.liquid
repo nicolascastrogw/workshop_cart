@@ -1,0 +1,76 @@
+{% assign cart_title = settings.cart_heading %}
+
+{% render 'cart-header', cart: cart, title: cart_title %}
+
+<div class="side-cart__items side-cart__margins">
+  {% render 'cart-items', cart: cart %}
+</div>
+
+{% if section.settings.upsell_collection != blank %}
+  {% render 'cart-upsell'
+    cart: cart,
+    collection: section.settings.upsell_collection,
+    title: section.settings.upsell_title
+  %}
+{% endif %}
+
+{% render 'cart-footer'
+  cart: cart,
+  title: section.settings.progressbar_title,
+  total_price: cart.original_total_price,
+  limit_price: section.settings.limit_price,
+  text_free_shipping: section.settings.free_shipping
+%}
+
+<script>
+  window.routes = {
+    cart_add_url: '{{ routes.cart_add_url }}',
+    cart_change_url: '{{ routes.cart_change_url }}',
+    cart_update_url: '{{ routes.cart_update_url }}',
+    predictive_search_url: '{{ routes.predictive_search_url }}',
+    recommendation: '{{ routes.product_recommendations_url }}'
+  };
+</script>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "class": "side-cart side-cart-js",
+  "settings": [
+    {
+      "type": "text",
+      "id": "upsell_title",
+      "label": "Upsell heading",
+      "default": "Vous aimerez aussi.."
+    },
+    {
+      "type": "collection",
+      "id": "upsell_collection",
+      "label": "Default collection upsell"
+    },
+    {
+      "type": "header",
+      "content": "Dynamic progress Bar"
+    },
+    {
+      "type": "text",
+      "id": "progressbar_title",
+      "label": "Dynamic text",
+      "default": "Plus que [value] pour avoir la rC)duction de livraison gratuite",
+      "info": "Ex: plus [value] euros pour avoir la rC)duction de livraison gratuite"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping",
+      "label": "Text on goal",
+      "default": "Livraison gratuite"
+    },
+    {
+      "type": "number",
+      "id": "limit_price",
+      "label": "Limit price value",
+      "default": 100
+    }
+  ]
+}
+{% endschema %}

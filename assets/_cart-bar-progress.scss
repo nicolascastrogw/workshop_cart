@@ -1,0 +1,21 @@
+@use './cart-variables' as variables;
+
+.bar {
+  background: transparent;
+  border: 1px solid variables.$background-dark;
+  height: 12px;
+  margin: 10px 0;
+  overflow: hidden;
+  width: 100%;
+
+  &-progress {
+    background: variables.$background-dark;
+    height: 100%;
+    transition: width .3s ease-in-out;
+    width: 0;
+  }
+}
+
+.shipping-free {
+  display: none;
+}

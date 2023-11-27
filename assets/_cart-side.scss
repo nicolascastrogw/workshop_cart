@@ -1,0 +1,107 @@
+@use './cart-variables' as variables;
+
+$paddings-side: 1rem;
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+}
+
+.side-cart {
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  opacity: 0;
+  height: 100%;
+  width: 400px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  background-color: variables.$background-principal;
+  overflow-y: auto;
+  z-index: 2;
+  transform: translateX(400px);
+  transition: all 0.4s ease;
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
+
+  &[data-active="true"] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0px);
+  }
+
+  & > *:not(:first-child) {
+    padding-top: $paddings-side;
+    padding-bottom: $paddings-side;
+    border-top: 1px solid variables.$color-border;
+  }
+
+  &__margins {
+    padding-right: $paddings-side;
+    padding-left: $paddings-side;
+  }
+
+  &__close {
+    font-size: 25px;
+    width: 68px;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    background-color: variables.$background-secondary;
+    border-style: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__header {
+    position: relative;
+    box-shadow: 0 2px 12px rgba(0,0,0,.12);
+    font-weight: 600;
+
+    & > span {
+      display: flex;
+      align-items: center;
+      height: 65px;
+    }
+  }
+
+  &__items {
+    height: 100%;
+  }
+
+  &__footer {
+    text-align: center;
+    position: sticky;
+    bottom: 0;
+    background-color: variables.$background-principal;
+    z-index: 1;
+  }
+
+  &__button {
+    button {
+      width: 100%;
+    }
+  }
+}
+
+.cart-message-error {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  background: variables.$background-principal;
+  transform: translateX(-50%);
+  z-index: 3;
+}

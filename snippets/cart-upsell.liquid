@@ -1,0 +1,75 @@
+{% comment %}
+  Render Upsell Section
+
+  Accepts:
+  - cart: {Object} cart object
+  - collection: {Object} collection object with upsell products
+  - title: {String} section heading
+
+  Usage:
+  {% render 'cart-upsell'
+    cart: cart,
+    collection: section.settings.upsell_collection,
+    title: section.settings.upsell_title,
+    slides_per_view: "auto | 2 | 4"
+  %}
+{% endcomment %}
+
+{% assign id_slider = 'upsellcart'
+  | split: '__'
+  | last
+  | remove: '-'
+  | prepend: 'swiperEl'
+%}
+
+{% capture snippet_content %}
+  {% for upsell_product in collection.products limit: 8 %}
+    {% for line_item in cart.items %}
+      {% if upsell_product.id == line_item.product.id %}
+        {% assign in_cart = line_item.product.id %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+
+    {% if upsell_product.id == in_cart %}
+      {% continue %}
+    {% else %}
+      <swiper-slide>
+        {% render 'cart-upsell-product'
+          product: upsell_product
+        %}
+      </swiper-slide>
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+<div
+  class="cart-upsell side-cart__margins"
+  id="upsell-js"
+>
+  <span class="cart-upsell__title">
+    {{ title }}
+  </span>
+
+  <swiper-container
+    init="false"
+    data-script="{{ 'swiper-element-bundle.min.js' | asset_url }}"
+    class="{{ id_slider }}"
+    slides-per-view="{{ slides_per_view | default: 1 }}"
+  >
+    {{ snippet_content }}
+  </swiper-container>
+
+  <button
+    type="button"
+    class="swiper-button swiper-button-prev {{ id_slider }}"
+    aria-label="Arrow slider{{ id_slider }} prev">
+    &#10094;
+  </button>
+  <button
+    type="button"
+    class="swiper-button swiper-button-next {{ id_slider }}"
+    aria-label="Arrow slider{{ id_slider }} next">
+    &#10095;
+  </button>
+</div>

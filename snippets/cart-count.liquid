@@ -1,0 +1,18 @@
+{% comment %}
+  Render cart count - Number items in cart
+
+  Accepts:
+  - cart: {Object} cart object
+
+  Usage:
+  {% render 'cart-count', cart: cart %}
+{% endcomment %}
+
+<span
+  class="cart-count {% unless request.page_type == 'cart' %}button-cart-js{% endunless %}"
+>
+  {% render 'cart-icon' %}
+  <span id="count-header-js">
+    <span>{{ cart.item_count }}</span>
+  </span>
+</span>

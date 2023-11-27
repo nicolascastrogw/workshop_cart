@@ -1,0 +1,13 @@
+@import "cart-upsell";
+@import "cart-items";
+@import "cart-bar-progress";
+@import "cart-side";
+
+.cart-count {
+  display: flex;
+  align-items: center;
+  
+  & > span {
+    font-size: 0.8rem;
+  }
+}

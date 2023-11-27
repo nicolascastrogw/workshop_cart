@@ -1,0 +1,41 @@
+{% comment %}
+  Cart Item Quantity
+  Renders quantity buttons on cart item
+
+  Accepts:
+  - id {Number} Required - Product variant id
+  - cart_item {Object} Required - Cart item object
+  - index {Number} Required - Item position in loop statement
+  
+  Usage:
+  {% render 'cart-item-quantity'
+    id: item.variant.id,
+    cart_item: item,
+    index: forloop.index,
+  %}
+{% endcomment %}
+
+<div
+  class="container-quantity quantity-label"
+>
+  <span class="btn-change button"
+    data-action="subtr"
+  >
+    -
+  </span>
+
+  <input
+    class="input-quantity item-cart-js"
+    id="{{ id }}-{{ index }}"
+    min="0"
+    data-index='{{ index }}'
+    data-quantity="{{ cart_item.quantity }}"
+    value="{{ cart_item.quantity }}"
+  />
+
+  <span class="btn-change button"
+    data-action="plus"
+  >
+    +
+  </span>
+</div>

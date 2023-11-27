@@ -1,0 +1,28 @@
+{% comment %}
+  Render footer in cart
+
+  Accepts:
+  - cart: {Object} cart object
+  - shipping_info: {String} shipping info in cart
+  - checkout_button: {String} text for checkout button
+
+  Usage:
+  {% render 'cart-footer'
+    cart: cart,
+    shipping_info: section.settings.shipping_info,
+    checkout_button: section.settings.checkout_button
+  %}
+{% endcomment %}
+
+<div
+  class="side-cart__footer side-cart__margins"
+>
+  {% render 'cart-progress-bar'
+    title: title,
+    total_price: total_price,
+    limit_price: limit_price,
+    text_free_shipping: text_free_shipping
+  %}
+
+  {% render 'cart-button', cart: cart %}
+</div>

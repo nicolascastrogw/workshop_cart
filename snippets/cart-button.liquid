@@ -1,0 +1,35 @@
+{% comment %}
+  Render button cart - Redirection checkout
+
+  Accepts:
+  - cart: {Object} cart object
+
+  Usage:
+  {% render 'cart-button', cart: cart %}
+{% endcomment %}
+
+{% capture content_button %}
+  {{ settings.cart_checkout }} - 
+  <span id="total-price">
+    {{ cart.total_price | money }}
+  </span>
+{% endcapture %}
+
+<div
+  id="container-footer-js"
+>
+  {% if cart.item_count > 0 %}
+    <div
+      class="side-cart__button"
+      id="cart-checkout-js"
+    >
+      <button
+        class="btn-1"
+        type="button"
+        onclick="location.href='/checkout'"
+      >
+        {{ content_button }}
+      </button>
+    </div>
+  {% endif %}
+</div>

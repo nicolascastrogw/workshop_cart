@@ -1,0 +1,80 @@
+@use './cart-variables' as variables;
+
+.cart-upsell {
+  background-color: variables.$background-secondary;
+  position: relative;
+
+  &__title {
+    padding-bottom: 10px;
+    font-weight: 600;
+    display: block;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__card-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-left: 6px;
+    width: 100%;
+  }
+
+  .card-description {
+    width: 100%;
+
+    span {
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    &__title {
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      display: -webkit-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 6px;
+    }
+  }
+
+  img {
+    object-fit: contain;
+    object-position: top;
+  }
+
+  .swiper-button {
+    top: auto;
+    bottom: 50%;
+    transform: translateY(50%);
+    color: variables.$color-font;
+    font-size: 25px;
+
+    &-prev {
+      left: 0;
+    }
+
+    &-next {
+      right: 0;
+    }
+  }
+
+  .upsell-btn {
+    padding: 10px 15px;
+
+    & > svg  {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .loading {
+    border: 3px solid #fff;
+    border-top: 3px solid #2c2c2c;
+  }
+}

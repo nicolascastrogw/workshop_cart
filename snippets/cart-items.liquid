@@ -1,0 +1,86 @@
+{% comment %}
+  Render a cart item
+
+  Accepts:
+  - cart: {Object} cart object
+
+  Usage:
+  {% render 'cart-item', cart: cart %}
+{% endcomment %}
+
+<div class="cartitems-js">
+  <div
+    class="cart-items"
+    id="cart-items"
+  >
+    {% if cart.item_count == 0 %}
+      <span class="cart-items__empty">
+        {{ settings.cart_empty }}
+      </span>
+    {% else %}
+      {% for item in cart.items %}
+        {% liquid
+          assign image = item.image
+
+          if image == blank
+            assign image = item.product.image
+          endif
+
+          assign img_url = image | image_url: width: 70
+        %}
+        
+        <item-cart
+          class="cart-item"
+          data-live-item-key="{{ item.key }}"
+        >
+          <div class="cart-item__s1">
+            {% render "render-image"
+              class: "cart-item__image",
+              attr: "data-live-item-image",
+              img_src: img_url,
+              img: image,
+              width: "70",
+              height: "70"
+            %}
+
+            <div class="cart-item__title">
+              <strong>
+                {{ item.product.title }}
+              </strong>
+
+              <span>
+                {{ item.variant.title }}
+              </span>
+              
+              <div class="item-quantity">
+                {% render 'cart-item-quantity'
+                  id: item.variant.id,
+                  cart_item: item,
+                  index: forloop.index,
+                %}
+              </div>
+            </div>
+          </div>
+
+          <div class="cart-item__s2">
+            <span
+              class="price-{{ item.variant.id }}-{{ forloop.index }}"
+              id="price-{{ item.variant.id }}-{{ forloop.index }}"
+              data-quantity="{{ item.quantity }}"
+            >
+              {{ item.original_line_price | money_with_currency }}
+            </span>
+
+            <span
+              class="item-delete"
+              data-id="{{ item.variant.id }}"
+              data-index="{{ forloop.index }}"
+            >
+              {{ settings.cart_delete }}
+            </span>
+          </div>
+        </item-cart>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
